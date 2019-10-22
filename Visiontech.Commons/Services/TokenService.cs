@@ -15,7 +15,6 @@ namespace Org.Visiontech.Commons.Services
         {
             this.url = url;
             this.service = service;
-            HttpClientProvider.Provided.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
         }
 
         public async Task<string> GetToken(string username, string password)
@@ -33,6 +32,7 @@ namespace Org.Visiontech.Commons.Services
             {
                 new KeyValuePair<string, string>("service", service)
             };
+
             HttpResponseMessage jwtHttpResponseMessage = await HttpClientProvider.Provided.PostAsync(tgtHttpResponseMessage.Headers.Location.OriginalString, new FormUrlEncodedContent(jwtParameters));
 
             return await jwtHttpResponseMessage.Content.ReadAsStringAsync();
