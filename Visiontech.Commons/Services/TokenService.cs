@@ -1,9 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using VisiontechCommons;
 
 namespace Org.Visiontech.Commons.Services
 {
@@ -17,6 +15,7 @@ namespace Org.Visiontech.Commons.Services
         {
             this.url = url;
             this.service = service;
+            HttpClientProvider.Provided.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
         }
 
         public async Task<string> GetToken(string username, string password)
@@ -25,7 +24,8 @@ namespace Org.Visiontech.Commons.Services
             IList<KeyValuePair<string, string>> tgtParameters = new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>("username", username),
-                new KeyValuePair<string, string>("password", password)
+                new KeyValuePair<string, string>("password", password),
+                new KeyValuePair<string, string>("service", service)
             };
             HttpResponseMessage tgtHttpResponseMessage = await HttpClientProvider.Provided.PostAsync(url, new FormUrlEncodedContent(tgtParameters));
 
