@@ -33,7 +33,13 @@ namespace Org.Visiontech.Commons.Services
                 new KeyValuePair<string, string>("service", service)
             };
 
-            HttpResponseMessage jwtHttpResponseMessage = await HttpClientProvider.Provided.PostAsync(tgtHttpResponseMessage.Headers.Location.OriginalString, new FormUrlEncodedContent(jwtParameters));
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, tgtHttpResponseMessage.Headers.Location.OriginalString)
+            {
+                Content = new FormUrlEncodedContent(jwtParameters)
+            };
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
+
+            HttpResponseMessage jwtHttpResponseMessage = await HttpClientProvider.Provided.SendAsync(request);
 
             return await jwtHttpResponseMessage.Content.ReadAsStringAsync();
 
