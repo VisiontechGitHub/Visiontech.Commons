@@ -6,7 +6,7 @@ namespace VisiontechCommons
     public static class SharedServiceProvider
     {
 
-        private static readonly IServiceCollection Services = new ServiceCollection();
+        public static readonly IServiceCollection Services = new ServiceCollection();
 
         private static IServiceProvider serviceProvider;
 
