@@ -11,28 +11,9 @@ namespace VisiontechCommons
 
         private static readonly IServiceCollection services = new ServiceCollection();
 
-        public static IServiceCollection Services
-        {
-            get
-            {
-                if (!(serviceProvider is null))
-                {
-                    throw new Exception("ServiceProvider already provided");
-                }
-                return services;
-            }
-            private set { }
-        }
-
-        private static IServiceProvider serviceProvider;
-
         public static IServiceProvider ServiceProvider {
             get {
-                if (serviceProvider is null)
-                {
-                    serviceProvider = services.BuildServiceProvider();
-                }
-                return serviceProvider;
+                return services.BuildServiceProvider(); ;
             }
             private set { }
         }
