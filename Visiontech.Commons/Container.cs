@@ -9,20 +9,7 @@ namespace VisiontechCommons
     public static class Container
     {
 
-        private static readonly IServiceCollection services = new ServiceCollection();
-
-        public static IServiceCollection Services
-        {
-            get
-            {
-                if (!(serviceProvider is null))
-                {
-                    throw new Exception("ServiceProvider already provided");
-                }
-                return services;
-            }
-            private set { }
-        }
+        private static readonly IServiceCollection Services = new ServiceCollection();
 
         private static IServiceProvider serviceProvider;
 
@@ -30,11 +17,16 @@ namespace VisiontechCommons
             get {
                 if (serviceProvider is null)
                 {
-                    serviceProvider = services.BuildServiceProvider();
+                    serviceProvider = Services.BuildServiceProvider();
                 }
                 return serviceProvider;
             }
             private set { }
+        }
+
+        public static void Reset()
+        {
+            serviceProvider = null;
         }
 
     }
