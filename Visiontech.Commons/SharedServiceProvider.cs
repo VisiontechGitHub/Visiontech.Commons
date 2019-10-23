@@ -3,7 +3,7 @@ using System;
 
 namespace VisiontechCommons
 {
-    public static class ServiceProviderBuilder
+    public static class SharedServiceProvider
     {
 
         private static readonly IServiceCollection Services = new ServiceCollection();

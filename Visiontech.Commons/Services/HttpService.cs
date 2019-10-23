@@ -11,7 +11,7 @@ namespace Org.Visiontech.Commons.Services
 
         public HttpService()
         {
-            HttpClientProvider = Container.ServiceProvider.GetService(typeof(IProvider<HttpClient>)) as IProvider<HttpClient>;
+            HttpClientProvider = SharedServiceProvider.ServiceProvider.GetService(typeof(IProvider<HttpClient>)) as IProvider<HttpClient>;
         }
 
     }

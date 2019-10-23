@@ -13,7 +13,7 @@ namespace Org.Visiontech.Commons.Services
 
         public HttpClient Provided { get; }
 
-        protected readonly IProvider<HttpClientHandler> httpClientHandlerProvider = Container.ServiceProvider.GetService(typeof(IProvider<HttpClientHandler>)) as IProvider<HttpClientHandler>;
+        protected readonly IProvider<HttpClientHandler> httpClientHandlerProvider = SharedServiceProvider.ServiceProvider.GetService(typeof(IProvider<HttpClientHandler>)) as IProvider<HttpClientHandler>;
 
         public HttpClientProvider()
         {
