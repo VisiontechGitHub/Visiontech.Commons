@@ -1,4 +1,5 @@
-﻿using Org.Visiontech.Commons.Models;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Org.Visiontech.Commons.Models;
 using System.Net.Http;
 using VisiontechCommons;
 
@@ -11,7 +12,7 @@ namespace Org.Visiontech.Commons.Services
 
         public HttpService()
         {
-            HttpClientProvider = SharedServiceProvider.ServiceProvider.GetService(typeof(IProvider<HttpClient>)) as IProvider<HttpClient>;
+            HttpClientProvider = SharedServiceProvider.ServiceProvider.GetRequiredService<IProvider<HttpClient>>();
         }
 
     }

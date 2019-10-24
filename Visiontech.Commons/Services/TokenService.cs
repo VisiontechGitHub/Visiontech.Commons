@@ -28,6 +28,10 @@ namespace Org.Visiontech.Commons.Services
             };
             HttpResponseMessage tgtHttpResponseMessage = await HttpClientProvider.Provided.PostAsync(url, new FormUrlEncodedContent(tgtParameters));
 
+            if (!tgtHttpResponseMessage.IsSuccessStatusCode || tgtHttpResponseMessage.Headers is null || tgtHttpResponseMessage.Headers.Location is null || string.IsNullOrWhiteSpace(tgtHttpResponseMessage.Headers.Location.OriginalString)) {
+                return default;
+            }
+
             IList<KeyValuePair<string, string>> jwtParameters = new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>("service", service)
@@ -40,6 +44,11 @@ namespace Org.Visiontech.Commons.Services
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
 
             HttpResponseMessage jwtHttpResponseMessage = await HttpClientProvider.Provided.SendAsync(request);
+
+            if (!jwtHttpResponseMessage.IsSuccessStatusCode)
+            {
+                return default;
+            }
 
             return await jwtHttpResponseMessage.Content.ReadAsStringAsync();
 
