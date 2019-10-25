@@ -26,8 +26,10 @@ namespace SoapClientService
 
         public static T Create(T proxified, ICollection<Action<Exception>> handlers) {
             T proxy = Create<T, ExceptionInterceptorProxy<T>>();
-            (proxy as ExceptionInterceptorProxy<T>).proxified = proxified;
-            (proxy as ExceptionInterceptorProxy<T>).handlers = handlers;
+            if (proxy is ExceptionInterceptorProxy<T> exceptionInterceptorProxy) {
+                exceptionInterceptorProxy.proxified = proxified;
+                exceptionInterceptorProxy.handlers = handlers;
+            }
             return proxy;
         }
 
