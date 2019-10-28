@@ -33,7 +33,7 @@ namespace Org.Visiontech.Commons.Services
 
             Task<HttpResponseMessage> response = HttpClientProvider.Provided.SendAsync(request);
 
-            return response.ContinueWith(test => test.Result.IsSuccessStatusCode ? test.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult() : default);
+            return response.ContinueWith(result => result.Result.IsSuccessStatusCode ? result.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult() : default);
         }
 
         public Task<string> GetTicketGrantingTicket(string username, string password)
@@ -53,7 +53,7 @@ namespace Org.Visiontech.Commons.Services
 
             Task<HttpResponseMessage> response = HttpClientProvider.Provided.SendAsync(request);
 
-            return response.ContinueWith(test => test.Result.IsSuccessStatusCode ? test.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult() : default);
+            return response.ContinueWith(result => result.Result.IsSuccessStatusCode ? result.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult() : default);
         }
 
 
@@ -61,11 +61,10 @@ namespace Org.Visiontech.Commons.Services
         public Task<bool> VerifyTicketGrantingTicket(string ticketGrantingTicket)
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, new Uri(uri, ticketGrantingTicket));
-            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
 
             Task<HttpResponseMessage> response = HttpClientProvider.Provided.SendAsync(request);
 
-            return response.ContinueWith(test => test.Result.IsSuccessStatusCode);
+            return response.ContinueWith(result => result.Result.IsSuccessStatusCode);
         }
     }
 }
