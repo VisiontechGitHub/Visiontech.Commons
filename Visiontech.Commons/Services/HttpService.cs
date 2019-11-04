@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Org.Visiontech.Commons.Models;
+﻿using Org.Visiontech.Commons.Models;
 using System.Net.Http;
-using VisiontechCommons;
 
 namespace Org.Visiontech.Commons.Services
 {
@@ -10,9 +8,9 @@ namespace Org.Visiontech.Commons.Services
 
         public IProvider<HttpClient> HttpClientProvider { get; }
 
-        public HttpService()
+        public HttpService(IProvider<HttpClient> HttpClientProvider)
         {
-            HttpClientProvider = SharedServiceProvider.ServiceProvider.GetRequiredService<IProvider<HttpClient>>();
+            this.HttpClientProvider = HttpClientProvider;
         }
 
     }

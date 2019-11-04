@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.Visiontech.Commons.Models;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -12,7 +13,7 @@ namespace Org.Visiontech.Commons.Services
         private readonly Uri uri;
         private readonly string service;
 
-        public AuthenticationService(Uri uri, string service)
+        public AuthenticationService(Uri uri, string service, IProvider<HttpClient> HttpClientProvider) : base(HttpClientProvider)
         {
             this.uri = uri;
             this.service = service;
